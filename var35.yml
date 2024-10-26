@@ -1,0 +1,25 @@
+---
+- name: Play to install a given pkg based on pkg_mgr
+  hosts: all
+  gather_facts: true
+  become: yes
+  tasks:
+  - name: Installing pkgs using yum
+    ansible.builtin.yum:
+      name: "{{reqPkg}}"
+      state: present
+      update_cache: yes
+    when: ansible_facts.pkg_mgr == "yum"
+  - name: Installing pkgs using dnf
+    ansible.builtin.dnf:
+      name: "{{reqPkg}}"
+      state: present
+      update_cache: yes
+    when: ansible_facts.pkg_mgr == "dnf"
+  - name: Installing pkgs using apt
+    ansible.builtin.apt:  
+      name: "{{reqPkg}}"
+      state: present
+      update_cache: yes
+    when: ansible_facts.pkg_mgr == "apt"
+

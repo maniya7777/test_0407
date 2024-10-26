@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars_prompt:
+    name: x
+    prompt: Enter your x value
+  gather_facts: false
+  tasks:
+  - ansible.builtin.debug:
+      msg:
+        - "The value of x is {{x}}"

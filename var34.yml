@@ -1,0 +1,8 @@
+---
+- name: Play to install a given pkg based on os_family
+  hosts: all
+  gather_facts: true
+  become: yes
+  tasks:  
+  - ansible.builtin.debug:
+      msg:  "{{ansible_facts.pkg_mgr}}"

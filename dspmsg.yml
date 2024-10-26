@@ -1,0 +1,11 @@
+---
+- name: Display Message
+  hosts: all
+  gather_facts: false
+  tasks:  
+  - name: Display message
+    ansible.builtin.debug:
+      msg: "Hellow World"
+  - name: Display message
+    ansible.builtin.debug:
+      msg: "Playbooks" 

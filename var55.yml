@@ -1,0 +1,14 @@
+---
+- name: Play for loops
+  hosts:  all
+  gather_facts: false
+  tasks:
+  - name: Creating a file
+    ansible.builtin.file:
+      path: /tmp/"{{item}}"
+      state: touch
+    loop:
+    - config1
+    - config2
+    - config3
+

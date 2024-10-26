@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  vars:
+    mydict: { 'linux': 'httpd', 'ubuntu': 'apache2' }
+  gather_facts: false
+  tasks:
+  - ansible.builtin.debug:
+      msg:
+      - "mydict: {{ mydict }}"
+      - "mydict keys are: {{ mydict.keys() }}"
+      - "mydict values are: {{ mydict.values() }}"
+      - "linux key value with get is: {{ mydict.get('linux') }}"
+      - "linux key value with [] is:  {{ mydict['linux'] }}"
+      - "linux key value with [] is:  {{ mydict.linux }}"

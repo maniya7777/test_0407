@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  vars:
+    x:  6
+    y:  10
+    p:  'hi'
+    q:  'bye'
+    r:  'bye'
+  gather_facts: false
+  tasks:
+  - ansible.builtin.debug:
+      msg:
+      - "The value of x is: {{x}} and the value of y is: {{y}}"
+      - "x == y:  {{  x == y }}"
+      - "x != y:  {{  x != y }}"
+      - "x < y :  {{ x < y }}"
+      - "x > y :  {{ x > y }}"
+      - "x <= y:  {{ x <= y }}"
+      - "x >= y:  {{ x >= y }}"
+      - "below are for string:"
+      - "p= {{p}} q={{q}} r={{r}}"
+      - "p == q:  {{ p == q }}"

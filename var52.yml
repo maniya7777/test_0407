@@ -1,0 +1,48 @@
+---
+- name: Play to find the java and python details
+  hosts: all
+  gather_facts: false
+  tasks:
+  - block:
+    - name: Running the 'java -version' command
+      ansible.builtin.command:
+        cmd: 'java -version'
+      ignore_errors: true
+      register: javaVersionOutput
+    - name: Finding Java Version when version command task is succeded
+      ansible.builtin.set_fact:
+        javaVersion: "{{(javaVersionOutput.stderr|split)[2]|trim('\"')}}"
+      when: javaVersionOutput.rc == 0
+    - name: Finding Java Version when version command task is failed
+      ansible.builtin.set_fact:
+        javaVersion:  "JavaNotFound"
+      when: javaVersionOutput.rc != 0
+    - name: Displaying Java Version
+      ansible.builtin.debug:
+        msg:  "javaVersion: {{javaVersion}}"
+    tags:
+      - never
+      - java
+      - javanginx
+  - block:
+    - name: Running the 'nginx -version' command
+      ansible.builtin.command:
+        cmd: 'nginx -version'
+      ignore_errors: true
+      register: nginxVersionOutput
+    - name: Finding nginx Version when version command task is succeded
+      ansible.builtin.set_fact:
+        nginxVersion: "{{(nginxVersionOutput.stderr|split('/'))[-1]}}"
+      when: nginxVersionOutput.rc == 0
+    - name: Finding nginx Version when version command task is failed
+      ansible.builtin.set_fact:
+        nginxVersion:  "nginxNotFound"
+      when: nginxVersionOutput.rc != 0
+    - name: Displaying nginx Version
+      ansible.builtin.debug:
+        msg:  "nginxVersion: {{nginxVersion}}"
+    tags: 
+      - never
+      - nginx
+      - javanginx
+

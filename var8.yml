@@ -1,0 +1,9 @@
+---
+- hosts: all
+  vars:
+    x: 7
+    y: 8080
+  gather_facts: false
+  tasks:
+  - ansible.builtin.debug:
+      var: x,y

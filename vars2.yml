@@ -1,0 +1,20 @@
+---
+- name: vars2
+  hosts: all
+  vars:
+    a: 4
+    b: 6.7
+    c: "tharindu Prsad manimendra"
+    d: mani
+    e: true
+    f: true
+  gather_facts: false
+  tasks:
+  - ansible.builtin.debug:
+      msg:
+      - "a value: {{a}} its data type is: {{a|ansible.builtin.type_debug}}"
+      - "b value: {{b}} its data type is: {{b|ansible.builtin.type_debug}}"
+      - "c value: {{c}} its data type is: {{c|ansible.builtin.type_debug}}"
+      - "d value: {{d}} its data type is: {{d|ansible.builtin.type_debug}}"
+      - "e value: {{e}} its data type is: {{e|ansible.builtin.type_debug}}"
+      - "f value: {{f}} its data type is: {{f|ansible.builtin.type_debug}}"

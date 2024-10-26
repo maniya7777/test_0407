@@ -1,0 +1,11 @@
+---
+- hosts:  all
+  vars_files:
+    - varwithyml.yml
+    - varwithjson.json
+  tasks:
+    - ansible.builtin.debug:
+        msg:
+          - "myvar: {{myvar}}"
+          - "mydict: {{mydict}}" 
+

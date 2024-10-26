@@ -1,0 +1,9 @@
+---
+- hosts:  all
+  gather_facts: false
+  user: tpm
+  tasks:
+  - ansible.builtin.shell:  'whoami'
+    register: output
+  - ansible.builtin.debug:
+      msg: "{{output}}"

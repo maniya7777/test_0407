@@ -1,0 +1,19 @@
+---
+- name: Play to install packages on different os families
+  hosts: all
+  gather_facts: true
+  tasks:
+  - name: Install packages on RHEL Family
+    ansible.builtin.yum:
+      name: httpd
+      state:  present
+      update_cache: yes
+    become: yes
+    when: ansible_facts.os_family == "RedHat"
+  - name: Install packages on Debian Family
+    ansible.builtin.apt:
+      name: apache2
+      state: present
+      update_cache: yes
+    become: yes
+    when: ansible_facts.os_family == "Debian"

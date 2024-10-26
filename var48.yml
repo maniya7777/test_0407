@@ -1,0 +1,22 @@
+---
+- name: Install , start and disply nginx
+  hosts: all
+  gather_facts: false
+  tasks:
+  - block:
+    - name: Installing nginx
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+    - name: Starting nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+    become: yes
+  - name: Finding the status
+    ansible.builtin.service_facts:
+  - name: Display the status
+    ansible.builtin.debug:
+      msg:  "{{ansible_facts.services['nginx.service']}}"
+
+

@@ -1,0 +1,42 @@
+---
+- name: Setting JAVA_HOME
+  hosts: all
+  gather_facts: false
+  vars:
+    reqLoc: /opt
+#    url: https://download.java.net/java/GA/jdk22.0.1/c7ec1332f7bb44aeba2eb341ae18aca4/8/GPL/openjdk-22.0.1_linux-x64_bin.tar.gz
+    targzFileName: "{{(url|split('/'))[-1]}}"
+    reqJavaVer: "{{((targzFileName|split('_'))[0]|split('-'))[-1]}}"
+    javaHomePath: "{{reqLoc}}/jdk-{{reqJavaVer}}"
+    targzFileNamePath: "{{reqLoc}}/{{targzFileName}}"
+  become: yes
+  tasks:
+  - name: Display variables
+    ansible.builtin.debug:
+      msg:
+      - "targzFileName: {{targzFileName}}"
+      - "reqJavaVer: {{reqJavaVer}}"
+      - "javaHomePath: {{javaHomePath}}"
+      - "targzFileNamePath: {{targzFileNamePath}}"
+  - name: Download required tar.gz file
+    ansible.builtin.get_url:
+      url:  "{{url}}"
+      dest: "{{targzFileNamePath}}"
+  - name: Extracting tar.gz file
+    ansible.builtin.unarchive:
+      src: "{{targzFileNamePath}}"
+      dest: "{{reqLoc}}"
+      remote_src: true
+  - name: Remove old JAVA_HOME
+    ansible.builtin.lineinfile:
+      path: /etc/environment
+      regex: "export JAVA_HOME"
+      state: absent
+  - name: Setting JAVA_HOME ENV Varibles
+    ansible.builtin.lineinfile:
+      path: /etc/environment
+      line: "export JAVA_HOME={{javaHomePath}}"
+  - name: Removing tar.gz file
+    ansible.builtin.file:
+      path: "{{targzFileNamePath}}"
+      state: absent

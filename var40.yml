@@ -1,0 +1,10 @@
+---
+- name: Play to install packages on different os families
+  hosts: all
+  gather_facts: true
+  become: yes
+  tasks:
+  - include_tasks: var37.yml
+    when: ansible_facts.os_family == "RedHat"
+  - include_tasks: var38.yml
+    when: ansible_facts.os_family == "Debian"

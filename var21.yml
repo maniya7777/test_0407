@@ -1,0 +1,19 @@
+---
+- name: Simple if-else statement
+  hosts:  localhost
+  vars:
+    a: 4
+    b: 9
+  gather_facts: false
+  tasks:
+  - name: Finding larger number
+    ansible.builtin.debug:
+      msg:
+      - "The larger number is: {{a}}"
+    when: a > b
+  - name: Finding larger number
+    ansible.builtin.debug:
+      msg:
+      - "The larger number is: {{b}}"
+    when: b > a
+

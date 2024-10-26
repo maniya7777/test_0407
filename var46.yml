@@ -1,0 +1,16 @@
+---
+- name: Validate nginx installation and if not there then install it
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Validating nginx installation
+    ansible.builtin.command:
+      cmd:  'ls -lrt /usr/sbin/nginx'
+    register: validationResult
+    ignore_errors: yes
+  - name: Installing nginx
+    ansible.builtin.yum:
+      name: nginx
+      state:  present
+    become: yes
+    when: validationResult.rc != 0

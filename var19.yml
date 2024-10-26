@@ -1,0 +1,22 @@
+---
+- name: Important Points
+  hosts:  localhost
+  vars:
+    mylist: [4,5,6]
+    mynewlist:
+      - 4
+      - 8
+      - 9
+    mydict: { 'linux': 'httpd', 'ubuntu': 'apache2' }
+    mynewdict:
+      linux: httpd
+      ubuntu: apache2
+  gather_facts: false
+  tasks:
+  - name: First task with debug module
+    ansible.builtin.debug:
+      msg:
+      - "mylist: {{mylist}}"
+      - "mynewlist: {{mynewlist}}"
+      - "mydict:  {{mydict}}"
+      - "mynewdict: {{mynewdict}}"

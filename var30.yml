@@ -1,0 +1,8 @@
+---
+- name: Play to display inventory_hostname and hostvars
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Display inventory_hostname
+    ansible.builtin.debug:
+      msg:  "{{inventory_hostname}}"

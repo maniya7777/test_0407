@@ -1,0 +1,12 @@
+---
+- name: Play to execute ant command
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Executing given command
+    ansible.builtin.command:
+      cmd:  "{{inputCmd}}"
+    register: cmdOutput
+  - name: Displaying result
+    ansible.builtin.debug:
+      msg: "{{cmdOutput.stdout if cmdOutput.stdout | length !=0 else cmdOutput.stderr}}"

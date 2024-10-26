@@ -1,0 +1,41 @@
+---
+- name: Play with tags usage
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: First Task
+    ansible.builtin.debug:
+      msg:  "This is first task"
+    tags: 
+      - never
+      - first
+  - name: Second Task
+    ansible.builtin.debug:
+      msg:  "This is second task"
+    tags: 
+      - never
+      - second
+      - go
+  - name: Third Task
+    ansible.builtin.debug:
+      msg:  "This is third task"
+    tags: 
+      - never
+      - third
+      - always
+  - name: Fourth Task
+    ansible.builtin.debug:
+      msg:  "This is fourth task"
+    tags: 
+      - never
+      - fourth
+  - name: Fifth Task
+    ansible.builtin.debug:
+      msg:  "This is fifth task"
+    tags: 
+      - never
+      - fifth
+      - go
+
+
+

@@ -1,0 +1,10 @@
+---
+- name: Play to get default facts
+  hosts: all
+  gather_facts: false
+  tasks:  
+  - name: gather default facts
+    ansible.builtin.setup:
+  - name: Display default facts
+    ansible.builtin.debug:
+      msg: "{{ansible_facts.keys()}}"

@@ -1,0 +1,15 @@
+---
+- hosts: all
+  vars:
+    myvalue: 4
+    mylist:
+      - 3
+      - 7
+      - 9
+    mydict:
+      myfirst:  56
+      mysecond: 8
+  tasks:
+  - ansible.builtin.debug:
+      msg:  "{{myvalue}}  {{mylist}} {{mydict}}"
+

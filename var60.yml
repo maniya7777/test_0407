@@ -1,0 +1,22 @@
+---
+- name: Play for loops
+  hosts:  all
+  gather_facts: false
+  vars:
+    reqFiles:
+      config22:
+        dir : '/tmp'
+        mode: '0755'
+      config33:
+        dir : '/home/tpm'
+        mode: '0666'
+      config44:
+        dir : '/home/ansibleadmin'
+        mode: '0757'
+  tasks:
+  - name: Creating a file
+    ansible.builtin.file:
+      path: "{{item.value.dir}}/{{item.key}}"
+      state: touch
+      mode: "{{item.value.mode}}"
+    with_dict:  "{{reqFiles}}"

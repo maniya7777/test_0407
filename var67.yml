@@ -1,0 +1,9 @@
+---
+- name: install mysql
+  hosts:  all
+  tasks:
+  - name: install mysql on trgt node
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: present
+      update_cache: yes

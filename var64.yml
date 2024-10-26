@@ -1,0 +1,10 @@
+---
+- name: Play to install httpd/apache2 on different os families
+  hosts:  all
+  gather_facts: true
+  vars:
+    pkgName:  httpd
+    DEbian: apache2
+  become: yes
+  roles:
+  - httpd

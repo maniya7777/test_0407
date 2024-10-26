@@ -1,0 +1,12 @@
+---
+- name: Python version
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Executing python version command with command module
+    ansible.builtin.command:
+      cmd:  'python --version'
+    register: pythonVersion
+  - name: Display python version
+    ansible.builtin.debug:
+      msg:  "{{pythonVersion.stdout}}"

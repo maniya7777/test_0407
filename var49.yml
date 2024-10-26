@@ -1,0 +1,20 @@
+---
+- name: Setting JAVA_HOME
+  hosts: all
+  gather_facts: false
+  become: yes
+  tasks:
+  - name: Download required tar.gz file
+    ansible.builtin.get_url:
+      url: https://download.java.net/java/GA/jdk22.0.1/c7ec1332f7bb44aeba2eb341ae18aca4/8/GPL/openjdk-22.0.1_linux-x64_bin.tar.gz
+      dest: /opt/openjdk-22.0.1_linux-x64_bin.tar.gz
+  - name: Exracting tar.gz file
+    ansible.builtin.unarchive:
+      src: /opt/openjdk-22.0.1_linux-x64_bin.tar.gz
+      dest: /opt
+      remote_src: true
+  - name: Setting JAVA_HOME ENV Variable
+    ansible.builtin.lineinfile:
+      path: /etc/environment
+      line: "export JAVA_HOME=/opt/jdk-22.0.1"
+      state: present

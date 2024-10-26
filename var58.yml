@@ -1,0 +1,25 @@
+---
+- name: Loops for package install
+  hosts:  all
+  gather_facts: true
+  become: yes
+  vars:
+    reqPkgs:
+    - vim
+    - curl
+    - wget
+  tasks:
+  - name: Installing packages using yum
+    ansible.builtin.yum:
+      name: "{{item}}"
+      state: present
+      update_cache: true
+    loop: "{{reqPkgs}}"
+    when: ansible_facts.os_family == "RedHat"
+  - name: Installing packages using apt
+    ansible.builtin.apt:
+      name: "{{item}}"
+      state: present
+      update_cache: true
+    loop: "{{reqPkgs}}"
+    when: ansible_facts.os_family == "Debian"

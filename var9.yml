@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - ansible.builtin.command: "uname"
+    register: unameoutput
+  - ansible.builtin.debug:
+     # msg: "uname Result: {{unameoutput}}"
+     var: unameoutput.stdout

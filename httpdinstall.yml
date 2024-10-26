@@ -2,13 +2,18 @@
 - hosts:  all
   become: true
   tasks:  
+  - name: update repository index
+    ansible.builtin.dnf:
+      update_cache: yes
+    when: ansible_distribution == "Fedora"
   - name: install httpd
     ansible.builtin.dnf:
       name: httpd
       state:  present
+    when: ansible_distribution == "Fedora"
   - name: install support for php
     ansible.builtin.dnf:
-      name: libapache2-mod-php
+      name: php
       state:  present
-    ignore_errors: true
+    when: ansible_distribution == "Fedora"
   

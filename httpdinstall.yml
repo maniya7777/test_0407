@@ -1,0 +1,14 @@
+---
+- hosts:  all
+  become: true
+  tasks:  
+  - name: install httpd
+    ansible.builtin.dnf:
+      name: httpd
+      state:  present
+  - name: install support for php
+    ansible.builtin.dnf:
+      name: libapache2-mod-php
+      state:  present
+    ignore_errors: true
+  

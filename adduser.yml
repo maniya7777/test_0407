@@ -1,0 +1,23 @@
+---
+- hosts:  all
+  become: true
+  tasks:
+  - name: Add user ktk
+    tags: always
+    ansible.builtin.user:
+      name: ktk
+      group:  root
+  - name: add sudoers file for ktk
+    tags: always
+    ansible.builtin.copy:
+      src:  sudoers_ktk
+      dest: /etc/sudoers.d/ktk
+      owner:  root
+      group:  root
+      mode: 0440
+  - name: Add ssh key for ktk user
+    tags: always
+    ansible.builtin.authorized_key:
+      user: ktk
+      key:  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDz6iONFqGEw4we3cxPtUphNuZar82VyTy6GvN9UvLUgMycDsNjqFPTIrRBDRSfgI1/uyVzM6u/B85oNmY9gLw2cQOAO3S14mmAEaYDP2+q1jIh+YcuGn0eGIokn8Juo4JpvSiSKECYdu6YsCtoUylKJkMQvrHMlIGlTo/ZyYnI0OY8rIeqX40bIiDxHD6hPnBdhSwXq30GhVVbKQaJVrFYMzzyBoft3UsSmkfOBkdBrW520O2s/WnCf3zmjbIVyf0mdsTcY5v0eUDFJlk17Mm7lElCzNEk1PKeL14237PPoYKC0Gjg1J7RUm+FFqVaj8yMbbeJjRA0Mp9dFqd5oybm7jis1UVRa+TLh4Lu/QjLfb5Mdjreo3XRYeCEThd5atsUdOMgtqmb/JF6vqIcLu1Vy9We/CK4cDy01zU9LVt+mMqO8PEgw+XoMnde+igtm0sSabJBFAsvH3ruOGzRuNAl2Wd6F0Po+jWC9k5or6iS4RStHkwaOknaQ3MDbui1GJM= ansibleadmin@localhost.localdomain"
+
